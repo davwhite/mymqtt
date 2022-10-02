@@ -9,10 +9,10 @@ data:
     listener 1883
 
     # Location of the credentials file
-    password_file /myuser/passwd
+    # password_file /myuser/passwd
 
     # Port and certificates for TLS encrypted communication
-    listener 8883
-    certfile /myuser/server.crt
-    cafile /myuser/ca.crt
-    keyfile /myuser/server.key
+    # listener 8883
+    # certfile /myuser/server.crt
+    # cafile /myuser/ca.crt
+    # keyfile /myuser/server.key

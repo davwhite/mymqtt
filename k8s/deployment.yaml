@@ -48,7 +48,7 @@ spec:
               mountPath: "/mosquitto/data"
               name: mqtt-data
             - name: mqtt-config
-              mountPath: "/mosquitto/config"
+              mountPath: "/myuser/mosquitto.conf"
           resources: {}
           imagePullPolicy: Always
       volumes: 

@@ -6,6 +6,6 @@ FROM alpine:3.11
 RUN apk --no-cache add mosquitto
 WORKDIR /myuser
 USER myuser
-COPY files/* /myuser/
-EXPOSE 1883 8883
+COPY files/start.sh /myuser/start.sh
+EXPOSE 1883
 CMD ["/myuser/start.sh"]

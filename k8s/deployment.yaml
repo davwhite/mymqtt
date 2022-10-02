@@ -34,7 +34,7 @@ spec:
         fsGroup: 1000
       containers:
         - name: mqtt
-          image: nexus.davenet.local:8080/mqtt/mqtt-ocp:latest
+          image: image-registry.openshift-image-registry.svc:5000/mqtt/mqtt-app
           imagePullPolicy: Always
           ports:
             - containerPort: 1883

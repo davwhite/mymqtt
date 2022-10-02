@@ -1,0 +1,65 @@
+---
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: mqtt-deployment
+  annotations:
+    alpha.image.policy.openshift.io/resolve-names: '*'
+    app.openshift.io/route-disabled: 'false'
+    deployment.kubernetes.io/revision: '1'
+  namespace: mqtt
+  labels:
+    app: mqtt
+    app.kubernetes.io/component: mqtt
+    app.kubernetes.io/instance: mqtt
+    app.kubernetes.io/name: mqtt
+    app.kubernetes.io/part-of: mqtt-app
+    app.openshift.io/runtime-namespace: mqtt
+spec:
+  restartPolicy: Never
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mqtt
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: mqtt
+        deploymentconfig: mqtt
+    spec:
+      securityContext:
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+      containers:
+        - name: mqtt
+          image: nexus.davenet.local:8080/mqtt/mqtt-ocp:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 1883
+              name: http
+              protocol: TCP
+            - containerPort: 8883
+              name: https
+              protocol: TCP
+          volumeMounts: 
+            - 
+              mountPath: "/mosquitto/data"
+              name: mqtt-data
+            - name: mqtt-config
+              mountPath: "/mosquitto/config"
+          resources: {}
+          imagePullPolicy: Always
+      volumes: 
+        - name: mqtt-data
+          persistentVolumeClaim:
+            claimName: pvc-mqtt
+        - name: mqtt-config
+          configMap:
+            name: mqtt-config
+      restartPolicy: Always
+      terminationGracePeriodSeconds: 30
+      dnsPolicy: ClusterFirst
+      securityContext: {}
+      schedulerName: default-scheduler

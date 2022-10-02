@@ -1,6 +1,0 @@
-apiVersion: project.openshift.io/v1
-description: "Mqtt"
-displayName: mqtt
-kind: ProjectRequest
-metadata:
-    name: mqtt
